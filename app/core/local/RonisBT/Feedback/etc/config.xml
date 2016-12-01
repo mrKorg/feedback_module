@@ -1,0 +1,106 @@
+<?xml version="1.0" ?>
+<config>
+
+    <modules>
+        <RonisBT_Feedback>
+            <version>0.0.1</version>
+        </RonisBT_Feedback>
+    </modules>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <ronisbt_feedback after="Mage_Adminhtml">RonisBT_Feedback_Adminhtml</ronisbt_feedback>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <frontend>
+
+        <routers>
+            <feedback>
+                <use>standard</use>
+                <args>
+                    <module>RonisBT_Feedback</module>
+                    <frontName>feedback</frontName>
+                </args>
+            </feedback>
+        </routers>
+
+        <layout>
+            <updates>
+                <feedback>
+                    <file>ronisbt_feedback.xml</file>
+                </feedback>
+            </updates>
+        </layout>
+
+    </frontend>
+
+    <global>
+
+        <blocks>
+            <ronisbt_feedback>
+                <class>RonisBT_Feedback_Block</class>
+            </ronisbt_feedback>
+        </blocks>
+
+        <models>
+            <ronisbt_feedback>
+                <class>RonisBT_Feedback_Model</class>
+                <resourceModel>ronisbt_feedback_resource</resourceModel>
+            </ronisbt_feedback>
+            <ronisbt_feedback_resource>
+                <class>RonisBT_Feedback_Model_Resource</class>
+                <entities>
+                    <table_feedback>
+                        <table>ronisbt_feedback</table>
+                    </table_feedback>
+                </entities>
+            </ronisbt_feedback_resource>
+        </models>
+
+        <resources>
+            <ronisbt_feedback_setup>
+                <setup>
+                    <module>RonisBT_Feedback</module>
+                </setup>
+            </ronisbt_feedback_setup>
+        </resources>
+
+        <helpers>
+            <ronisbt_feedback>
+                <class>RonisBT_Feedback_Helper</class>
+            </ronisbt_feedback>
+        </helpers>
+
+        <template>
+            <email>
+                <feedback_email_email_template translate="label" module="ronisbt_feedback">
+                    <label>Feedback Form</label>
+                    <file>feedback_form.html</file>
+                    <type>text</type>
+                </feedback_email_email_template>
+            </email>
+        </template>
+
+    </global>
+
+    <default>
+        <ronisbt_feedback>
+            <feedback>
+                <enabled>1</enabled>
+            </feedback>
+            <email>
+                <recipient_email><![CDATA[info@example.com]]></recipient_email>
+                <sender_email_identity>custom3</sender_email_identity>
+                <email_template>ronisbt_feedback_email_email_template</email_template>
+            </email>
+        </ronisbt_feedback>
+    </default>
+
+</config>

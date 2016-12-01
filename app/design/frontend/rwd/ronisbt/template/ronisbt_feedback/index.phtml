@@ -1,0 +1,83 @@
+<div class="ronisbt-feedback">
+    <h1>feedback</h1>
+    <?php echo $this->getRequest()->getParam('name'); ?>
+    <div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+    <form action="<?php echo $this->getFormAction(); ?>" id="feedbackForm" method="post">
+        <div class="fieldset">
+            <ul class="form-list">
+                <li class="fields">
+                    <div class="field">
+                        <label for="name" class="required"><em>*</em><?php echo Mage::helper('ronisbt_feedback')->__('Name') ?></label>
+                        <div class="input-box">
+                            <input name="name" id="name" title="<?php echo $this->quoteEscape(Mage::helper('ronisbt_feedback')->__('Name')) ?>"
+                                   value="<?php $this->getUserName(); ?>" class="input-text required-entry" type="text" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="email" class="required"><em>*</em><?php echo Mage::helper('ronisbt_feedback')->__('Email') ?></label>
+                        <div class="input-box">
+                            <input name="email" id="email" title="<?php echo $this->quoteEscape(Mage::helper('ronisbt_feedback')->__('Email')) ?>"
+                                   value="<?php $this->getUserEmail();  ?>"
+                                   class="input-text required-entry validate-email" type="text" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="phone"><?php echo Mage::helper('contacts')->__('Telephone') ?></label>
+                        <div class="input-box">
+                            <input name="phone" id="phone" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('ronisbt_feedback')->__('Telephone')) ?>"
+                                   value="<?php $this->getUserPhone(); ?>" class="input-text" type="text" />
+                        </div>
+                    </div>
+                </li>
+
+                <li class="fields" id="feedback-subject">
+                    <div class="field">
+                        <label for="subject" class="required"><em>*</em><?php echo Mage::helper('ronisbt_feedback')->__('Subject') ?></label>
+                        <div class="input-box">
+                            <select name="subject" id="subject" class="validate-select input-text required-entry subject" style="height: 30px; padding: 0 10px;">
+                                <option disabled <?php if (!$this->getOldData()) echo "selected"; ?>>
+                                    Select subject
+                                </option>
+                                <?php foreach (Mage::getModel('ronisbt_feedback/source_subject')->toArray() as $key=>$item) : ?>
+                                <option value="<?php echo $key; ?>" <?php if ($this->getOldData()['subject'] == $key) echo "selected"; ?>>
+                                    <?php echo $item; ?>
+                                </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field other-subject-box" style="display: none;">
+                        <label for="other-subject" class="required"><em>*</em><?php echo Mage::helper('ronisbt_feedback')->__('Other subject') ?></label>
+                        <div class="input-box">
+                            <input name="other_subject" id="other-subject" title="<?php echo $this->quoteEscape(Mage::helper('ronisbt_feedback')->__('Other subject')) ?>"
+                                   value="<?php $this->getOtherSubject(); ?>" class="input-text other-subject" type="text" />
+                        </div>
+                    </div>
+                </li>
+
+                <li class="fields">
+                    <label for="message" class="required"><em>*</em><?php echo Mage::helper('ronisbt_feedback')->__('Message') ?></label>
+                    <div class="input-box">
+                        <textarea name="message" id="comment" title="<?php echo $this->quoteEscape(Mage::helper('ronisbt_feedback')->__('Message')) ?>"
+                                  class="required-entry input-text" cols="5" rows="3"><?php $this->getMessage(); ?></textarea>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <div class="g-recaptcha" data-sitekey="<?php echo Mage::getModel('ronisbt_feedback/feedback')->getSiteKey(); ?>"></div>
+        <div class="buttons-set">
+            <p class="required"><?php echo Mage::helper('ronisbt_feedback')->__('* Required Fields') ?></p>
+            <button type="submit" title="<?php echo $this->quoteEscape(Mage::helper('ronisbt_feedback')->__('Submit')) ?>" class="button">
+                <span><span><?php echo Mage::helper('ronisbt_feedback')->__('Submit') ?></span></span>
+            </button>
+        </div>
+    </form>
+    <script type="text/javascript">
+        //<![CDATA[
+        var feedbackForm = new VarienForm('feedbackForm', true);
+        //]]>
+    </script>
+
+</div>
